@@ -36,7 +36,7 @@ def main(argv=None):
 
     # 3. Analyse lexicale et syntaxique
     try:
-        Parser(expression).printTokens()
+        Parser(expression).analyser()
     except (ErreurLexicale, ErreurSyntaxique) as erreur:
         print(erreur, file=sys.stderr)
         return 1
