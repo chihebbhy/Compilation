@@ -1,0 +1,46 @@
+Déclaration d'utilisation d'un assistant IA
+===========================================
+
+TP Techniques de compilation - Du texte d'une expression régulière à l'automate
+
+Outil utilisé : Claude Code (assistant IA d'Anthropic)
+Date          : 15 novembre 2026
+Utilisé par   : Chiheb Eddine Ben Hadj Yahia (Étudiant 1)
+
+
+1. Ce que l'assistant a fait
+----------------------------
+L'assistant a été utilisé uniquement pour la mise en place initiale du dépôt :
+
+  - initialisation du dépôt git ;
+  - création de l'arborescence demandée par l'énoncé (section 8) :
+    src/, tests/, automates/, EQUIPE.txt, README.txt ;
+  - choix des noms de fichiers : lexer.py, parser.py, automate.py,
+    export_dot.py, simulation.py, main.py, run_tests.py ;
+  - commentaires d'en-tête de chaque fichier, qui reprennent les exigences
+    de l'énoncé (rôle du fichier, partie concernée, rappel de la grammaire
+    fournie) ;
+  - fichiers annexes : README.txt (instructions d'exécution), .gitignore,
+    gabarit de EQUIPE.txt ;
+  - recopie dans tests/tests.txt des neuf expressions obligatoires données
+    dans le tableau de la partie 6 de l'énoncé ;
+  - rédaction du présent fichier.
+
+
+2. Ce qui a été rejeté
+----------------------
+L'assistant avait aussi proposé des squelettes de code (classes, signatures
+de fonctions, constantes de jetons, fonctions vides). Ces squelettes ont été
+supprimés : seuls les commentaires d'en-tête ont été conservés.
+
+
+3. Ce que l'assistant n'a pas fait
+----------------------------------
+  - aucune réponse aux questions théoriques (FIRST/FOLLOW, table LL(1),
+    schéma de traduction, graphes de dépendances, arbres annotés) ;
+  - aucune implémentation : analyse lexicale, analyse syntaxique,
+    construction de Thompson, numérotation des états, export Graphviz,
+    simulation, lanceur de tests ;
+  - aucune rédaction du rapport.
+
+Tout le code et toutes les réponses théoriques sont le travail de l'équipe.

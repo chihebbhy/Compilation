@@ -1,0 +1,32 @@
+TP Techniques de compilation - Du texte d'une expression reguliere a l'automate
+================================================================================
+
+Langage : Python 3.12 (bibliotheque standard uniquement)
+Outil externe : Graphviz (commande dot) pour la visualisation
+
+Execution
+---------
+    python src/main.py "(a|b)*abb" abb aabb ab
+    python src/main.py "(a|b)*abb" abb --dot automates/exemple.dot
+    dot -Tpng automates/exemple.dot -o automates/exemple.png
+
+Un mot vide est passe avec "". En cas d'expression invalide, le message
+d'erreur est affiche et le code de retour est non nul.
+
+Tests
+-----
+    python tests/run_tests.py
+
+Structure
+---------
+    EQUIPE.txt          membres de l'equipe
+    rapport.pdf         rapport (a ajouter)
+    src/lexer.py        analyse lexicale (Partie 2)
+    src/parser.py       analyseur predictif + schema de traduction (Parties 2, 3, 4)
+    src/automate.py     fragments d'automate, construction de Thompson (Parties 3, 4)
+    src/export_dot.py   export Graphviz (Partie 5)
+    src/simulation.py   epsilon-fermeture et reconnaissance (Partie 5)
+    src/main.py         interface en ligne de commande (Partie 5)
+    tests/tests.txt     jeu de tests (Partie 6)
+    tests/run_tests.py  lanceur de tests (Partie 6)
+    automates/          fichiers .dot generes

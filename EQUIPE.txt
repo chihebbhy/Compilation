@@ -1,0 +1,6 @@
+Equipe (nom, prenom, groupe)
+----------------------------
+Etudiant 1 Chiheb Eddine Ben Hadj Yahia : A COMPLETER  - Analyse lexicale, grammaire LL(1), FIRST/FOLLOW
+Etudiant 2 Ghassen Khirouni             : A COMPLETER  - Schema de traduction, construction de Thompson
+Etudiant 3 Isra Lemjid                  : A COMPLETER  - Export Graphviz, simulation
+Etudiant 4 Sahar Abidi                  : A COMPLETER  - Jeu de tests, numerotation des etats, rapport

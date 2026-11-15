@@ -1,0 +1,9 @@
+a ; a ; b aa
+a|b ; a b ; ab
+ab* ; a abbb ; b aba
+(a|b)*abb ; abb aabb babb ; ab abba @
+(ab)+ ; ab abab ; aba
+a?b ; b ab ; a aab
+(a*)* ; a aaa @ ; b
+a(b|c)*d ; ad abcbd ; a abc
+@ ; @ ; a
