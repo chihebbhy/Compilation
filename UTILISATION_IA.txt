@@ -24,6 +24,8 @@ L'assistant a été utilisé uniquement pour la mise en place initiale du dépô
     gabarit de EQUIPE.txt ;
   - recopie dans tests/tests.txt des neuf expressions obligatoires données
     dans le tableau de la partie 6 de l'énoncé ;
+  - gabarits de tableaux vides pour la partie 1 (docs/partie1_tables.md) :
+    lignes, colonnes et numérotation des productions, sans aucun contenu ;
   - rédaction du présent fichier.
 
 
