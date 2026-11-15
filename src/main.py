@@ -26,6 +26,7 @@ def main(argv=None):
         dot_file = args[dot_index + 1]
         del args[dot_index:dot_index + 2]
 
+
     # 2. L'expression, puis les mots (le mot vide "" est garde)
     if len(args) < 1:
         print("Usage : python src/main.py <expression> [mot1 mot2 ...] [--dot fichier.dot]",file=sys.stderr)
@@ -35,7 +36,7 @@ def main(argv=None):
 
     # 3. Analyse lexicale et syntaxique
     try:
-        Parser(expression).analyser()
+        Parser(expression).printTokens()
     except (ErreurLexicale, ErreurSyntaxique) as erreur:
         print(erreur, file=sys.stderr)
         return 1

@@ -39,3 +39,10 @@ class Parser:
         A completer (Etudiant 2) : une methode par non-terminal
         R, R', T, T', F, F', A."""
         pass
+    def printTokens(self):
+        """Affiche tous les jetons de l'analyse lexicale."""
+        self.lexer.index = 0
+        c = self.lexer.nextToken()
+        while c.type != TokenType.EOF:
+            print(c)
+            c = self.lexer.nextToken()

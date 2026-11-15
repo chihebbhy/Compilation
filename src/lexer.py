@@ -6,6 +6,7 @@ sa nature, sa valeur et sa position dans la chaine.
 Interdit : le module `re` ou toute bibliotheque d'expressions regulieres.
 """
 from enum import Enum
+from string import ascii_letters, digits
 
 TokenType = Enum('TokenType', [
     'SYMBOLE',
@@ -16,63 +17,57 @@ TokenType = Enum('TokenType', [
     'OPTION',
     'LEFTPAR',
     'RIGHTPAR',
+    'EOF',
 ])
+
+ALPHANUM = set(ascii_letters + digits)
+
+# caractere special -> nature du jeton
+SPECIAUX = {
+    '@': TokenType.VIDE,
+    '|': TokenType.UNION,
+    '*': TokenType.ETOILE,
+    '+': TokenType.PLUS,
+    '?': TokenType.OPTION,
+    '(': TokenType.LEFTPAR,
+    ')': TokenType.RIGHTPAR,
+}
+
+
+class ErreurLexicale(Exception):
+    def __init__(self, position, trouve):
+        super().__init__(
+            f"Erreur à la position {position} : "
+            f"caractère '{trouve}' invalide"
+        )
+        self.position = position
 
 
 class Token:
-    def __init__(self,type=None,lexeme="",position=None):
+    def __init__(self, type=None, lexeme="", position=None):
         self.type = type
         self.lexeme = lexeme
         self.position = position
 
+    def __repr__(self):
+        return f"Token({self.type.name}, {self.lexeme!r}, {self.position})"
+
+
 class Lexer:
-    def __init__(self):
-        self.string = None
+    def __init__(self, string):
+        self.string = string
         self.index = 0
+
     def nextToken(self):
-        if self.index >= self.string.length():
-            return None
-        c = self.string[self.index]
-        if c in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789":
+        pos = self.index
+        if pos >= len(self.string):
+            return Token(TokenType.EOF, "", pos)
+
+        c = self.string[pos]
+        if c in ALPHANUM:
             self.index += 1
-            return Token(type=TokenType('SYMBOLE'),
-                        lexeme=c,
-                        position=self.index -1
-                        )
-        elif c == '@':
+            return Token(TokenType.SYMBOLE, c, pos)
+        if c in SPECIAUX:
             self.index += 1
-            return Token(type=TokenType('VIDE'),
-                        position=self.index -1
-                        )
-        elif c == '|':
-            self.index += 1
-            return Token(type=TokenType('UNION'),
-                        position=self.index -1
-                        )
-        elif c == '*':
-            self.index += 1
-            return Token(type=TokenType('ETOILE'),
-                        position=self.index -1
-                        )
-        elif c == '+':
-            self.index += 1
-            return Token(type=TokenType('PLUS'),
-                        position=self.index -1
-                        )
-        elif c == '?':
-            self.index += 1
-            return Token(type=TokenType('OPTION'),
-                        position=self.index -1
-                        )
-        elif c == '(':
-            self.index += 1
-            return Token(type=TokenType('RIGHTPAR'),
-                        position=self.index -1
-                        )
-        elif c == ')':
-            self.index += 1
-            return Token(type=TokenType('LEFTPAR'),
-                        position=self.index -1
-                        )
-        else:
-            return 
+            return Token(SPECIAUX[c], c, pos)
+        raise ErreurLexicale(pos, c)
