@@ -4,7 +4,7 @@ Etat initial signale par une fleche entrante, etat d'acceptation en double
 cercle, ε-transitions etiquetees ε, transitions paralleles regroupees en
 une seule arete (etiquette "a,b").
 
-Visualisation :  dot -Tpng automate.dot -o automate.png
+Visualisation :  dot -Tpng automate.py -o automate.png
 
 transitions: source , etiquette ( symbole lu) , dest (0 , 'a', 1 ) de l etat 0 par a il va en 1
 """
