@@ -10,6 +10,9 @@ import sys
 from lexer import ErreurLexicale
 from parser import Parser, ErreurSyntaxique
 
+from export_dot import ecrire_dot
+from simulation import reconnaitre
+
 
 def main(argv=None):
     if argv is None:
@@ -46,6 +49,22 @@ def main(argv=None):
     # Partie 5 (plus tard) :
     # if dot_file is not None: ecrire l'automate dans dot_file
     # for mot in mots: afficher "mot : OUI" ou "mot : NON"
+        # 3. Analyse lexicale et syntaxique
+    try:
+        frag = Parser(expression).analyse()
+    except (ErreurLexicale, ErreurSyntaxique) as erreur:
+        print(erreur, file=sys.stderr)
+        return 1
+
+    print("Expression valide")
+
+    # 4. Export Graphviz
+    if dot_file is not None:
+        ecrire_dot(frag, dot_file)
+
+    # 5. Simulation
+    for mot in mots:
+        print(f"{mot} : {'OUI' if reconnaitre(frag, mot) else 'NON'}")
 
     return 0
 
