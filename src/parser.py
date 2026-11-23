@@ -32,95 +32,149 @@ s = attribut synthetise, n = prochain etat libre, herite ; n' synthetise) :
     A      -> '@'       { A.s = mot_vide() }
 """
 import sys
+
+import automate
 from lexer import Lexer, TokenType
 
 Types = TokenType
 _FIRST_F = (Types.LEFTPAR, Types.SYMBOLE, Types.VIDE)
+# ordre d'affichage des jetons attendus
+_ORDRE = [Types.UNION, Types.ETOILE, Types.PLUS, Types.OPTION, Types.LEFTPAR,
+          Types.RIGHTPAR, Types.SYMBOLE, Types.VIDE, Types.EOF]
 _NOMS = {Types.UNION: "'|'", Types.ETOILE: "'*'", Types.PLUS: "'+'",
          Types.OPTION: "'?'", Types.LEFTPAR: "'('", Types.RIGHTPAR: "')'",
          Types.SYMBOLE: "symbole", Types.VIDE: "'@'",
          Types.EOF: "fin de l'expression"}
 
+
 class ErreurSyntaxique(Exception):
     def __init__(self, position, attendus, trouve):
-        noms = [_NOMS[t] for t in attendus]
+        noms = [_NOMS[t] for t in _ORDRE if t in set(attendus)]
         if len(noms) > 1:
             liste = ", ".join(noms[:-1]) + " ou " + noms[-1]
         else:
             liste = noms[0]
-        found = "fin de l'expression" if trouve.type == Types.EOF else f"'{trouve.lexeme}'"
+        found = ("fin de l'expression" if trouve.type == Types.EOF
+                 else f"'{trouve.lexeme}'")
         super().__init__(
             f"Erreur à la position {position} : {liste} attendu, {found} trouvé"
         )
         self.position = position
 
-class Parser():
-    def __init__(self,text):
+
+class Parser:
+    def __init__(self, text):
         self.lexer = Lexer(text)
         self.current = self.lexer.nextToken()
+        self.attendus = set()   # types testes depuis le dernier jeton consomme
+        self.prochain = 0       # prochain etat libre apres analyse()
 
-    def consume(self,expected):
-        if self.peek() != expected:
-            raise ErreurSyntaxique(self.current.position, [expected], self.current)
-        token = self.current
-        self.current = self.lexer.nextToken()
-        return token
-
+    # -- outils -----------------------------------------------------------
     def peek(self):
         return self.current.type
 
-    def analyse(self):
-        self.R()
+    def tester(self, *types):
+        """Teste le lookahead et memorise ce qui etait attendu."""
+        self.attendus.update(types)
+        return self.current.type in types
+
+    def consume(self, expected):
+        if not self.tester(expected):
+            self.erreur()
+        token = self.current
+        self.current = self.lexer.nextToken()
+        self.attendus = set()
+        return token
+
+    def erreur(self):
+        raise ErreurSyntaxique(self.current.position, self.attendus,
+                               self.current)
+
+    # -- point d'entree ---------------------------------------------------
+    def analyse(self, n0=0):
+        """Analyse R puis verifie la fin de l'entree. Rend le fragment
+        (init, fin, transitions) ; self.prochain = prochain etat libre.
+        Leve ErreurLexicale / ErreurSyntaxique si l'expression est invalide.
+        Le numero de depart n0 est un parametre : aucun etat global."""
+        # une procedure recursive par symbole/operateur : on releve la limite
+        sys.setrecursionlimit(max(sys.getrecursionlimit(), 20000))
+        frag, n = self.R(n0)
         self.consume(Types.EOF)
+        self.prochain = n
+        return frag
 
-    def R(self):
-        self.T()
-        self.Rp()
+    # -- une procedure par non-terminal ----------------------------------
+    # Chacune rend (fragment synthetise s, prochain etat libre n').
 
-    def Rp(self):
-        if self.peek() == Types.UNION:
+    def R(self, n):
+        t, n = self.T(n)
+        return self.Rp(t, n)
+
+    def Rp(self, h, n):
+        if self.tester(Types.UNION):
             self.consume(Types.UNION)
-            self.T()
-            self.Rp()
-        # else epsilon
+            t, n = self.T(n)
+            h, n = automate.union(h, t, n)
+            return self.Rp(h, n)
+        return h, n  # R' -> epsilon
 
-    def T(self):
-        self.F()
-        self.Tp()
+    def T(self, n):
+        f, n = self.F(n)
+        return self.Tp(f, n)
 
-    def Tp(self):
-        if self.peek() in _FIRST_F :
-            self.F()
-            self.Tp()
-        # else epsilon
-    def F(self):
-        self.A()
-        self.Fp()
+    def Tp(self, h, n):
+        # la concatenation est implicite : on continue si FIRST(F)
+        if self.tester(*_FIRST_F):
+            f, n = self.F(n)
+            h, n = automate.concat(h, f, n)
+            return self.Tp(h, n)
+        return h, n  # T' -> epsilon
 
-    def Fp(self):
-        if self.peek() == Types.ETOILE:
+    def F(self, n):
+        a, n = self.A(n)
+        return self.Fp(a, n)
+
+    def Fp(self, h, n):
+        if self.tester(Types.ETOILE):
             self.consume(Types.ETOILE)
-            self.Fp()
-        elif self.peek() == Types.PLUS:
+            h, n = automate.etoile(h, n)
+            return self.Fp(h, n)
+        if self.tester(Types.PLUS):
             self.consume(Types.PLUS)
-            self.Fp()
-        elif self.peek() == Types.OPTION:
+            h, n = automate.plus(h, n)
+            return self.Fp(h, n)
+        if self.tester(Types.OPTION):
             self.consume(Types.OPTION)
-            self.Fp()
-        # else epsilon
+            h, n = automate.optionnel(h, n)
+            return self.Fp(h, n)
+        return h, n  # F' -> epsilon
 
-    def A(self):
-        if self.peek() == Types.LEFTPAR:
+    def A(self, n):
+        if self.tester(Types.LEFTPAR):
             self.consume(Types.LEFTPAR)
-            self.R()
+            r, n = self.R(n)
             self.consume(Types.RIGHTPAR)
-        elif self.peek() == Types.SYMBOLE:
-            self.consume(Types.SYMBOLE)
-        elif self.peek() == Types.VIDE:
+            return r, n
+        if self.tester(Types.SYMBOLE):
+            jeton = self.consume(Types.SYMBOLE)
+            return automate.symbole(jeton.lexeme, n)
+        if self.tester(Types.VIDE):
             self.consume(Types.VIDE)
-        else:
-            raise ErreurSyntaxique(self.current.position, _FIRST_F, self.current)
+            return automate.mot_vide(n)
+        self.erreur()
 
+
+def compter_n(texte):
+    """n = nombre de symboles et d'operateurs (@ | * + ?), hors
+    concatenation et parentheses : sert a verifier 'au plus 2n etats'."""
+    lexer = Lexer(texte)
+    compte = 0
+    while True:
+        j = lexer.nextToken()
+        if j.type == Types.EOF:
+            return compte
+        if j.type not in (Types.LEFTPAR, Types.RIGHTPAR):
+            compte += 1
 
 
 if __name__ == "__main__":

@@ -39,24 +39,13 @@ def main(argv=None):
 
     # 3. Analyse lexicale et syntaxique
     try:
-        Parser(expression).analyse()
-    except (ErreurLexicale, ErreurSyntaxique) as erreur:
-        print(erreur, file=sys.stderr)
-        return 1
-
-    print("Expression valide")
-
-    # Partie 5 (plus tard) :
-    # if dot_file is not None: ecrire l'automate dans dot_file
-    # for mot in mots: afficher "mot : OUI" ou "mot : NON"
-        # 3. Analyse lexicale et syntaxique
-    try:
         frag = Parser(expression).analyse()
     except (ErreurLexicale, ErreurSyntaxique) as erreur:
         print(erreur, file=sys.stderr)
         return 1
 
-    print("Expression valide")
+    if not mots:
+        print("Expression valide")   # Partie 2 : pas de mot a tester
 
     # 4. Export Graphviz
     if dot_file is not None:

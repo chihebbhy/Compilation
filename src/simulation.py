@@ -25,8 +25,8 @@ def table_transitions(frag): # ranger les transitions dans un dict table
     #Après : {(0,'a'): {1,2}, (1,EPS): {3}} depuis l etat  on peut aller en  ou 
     for src, symbole_lu, dst in frag.transitions:
         if (src, symbole_lu) not in table:
-             table[(src, symbole_lu)] = set() # set cree ensemble vide 
-             table[(src, symbole_lu)].add(dst)
+             table[(src, symbole_lu)] = set() # set cree ensemble vide
+        table[(src, symbole_lu)].add(dst)  # hors du if : toutes les cibles
     return table
 
 
