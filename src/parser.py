@@ -14,32 +14,33 @@ Une procedure par non-terminal, sans retour arriere. Les actions
 semantiques construisent un fragment d'automate (voir automate.py). Le
 prochain numero d'etat libre circule en attribut (parametre / valeur de
 retour) : aucun compteur global ou statique.
-
-Schema de traduction (h = attribut herite : fragment deja construit,
-s = attribut synthetise, n = prochain etat libre, herite ; n' synthetise) :
-
-    R      -> T R'      { R'.h = T.s ; R'.n = T.n' ; R.s = R'.s }
-    R'     -> '|' T R'1 { R'1.h = union(R'.h, T.s) ; R'.s = R'1.s }
-    R'     -> eps       { R'.s = R'.h }
-    T      -> F T'      { T'.h = F.s ; T.s = T'.s }
-    T'     -> F T'1     { T'1.h = concat(T'.h, F.s) ; T'.s = T'1.s }
-    T'     -> eps       { T'.s = T'.h }
-    F      -> A F'      { F'.h = A.s ; F.s = F'.s }
-    F'     -> '*' F'1   { F'1.h = etoile(F'.h) ; F'.s = F'1.s }   (idem + et ?)
-    F'     -> eps       { F'.s = F'.h }
-    A      -> '(' R ')' { A.s = R.s }
-    A      -> SYMBOLE   { A.s = symbole(SYMBOLE.lexeme) }
-    A      -> '@'       { A.s = mot_vide() }
 """
 import sys
 from lexer import Lexer, TokenType
+from automate import (
+    symbole,
+    mot_vide,
+    union,
+    concat,
+    etoile,
+    plus,
+    optionnel,
+)
 
 Types = TokenType
 _FIRST_F = (Types.LEFTPAR, Types.SYMBOLE, Types.VIDE)
-_NOMS = {Types.UNION: "'|'", Types.ETOILE: "'*'", Types.PLUS: "'+'",
-         Types.OPTION: "'?'", Types.LEFTPAR: "'('", Types.RIGHTPAR: "')'",
-         Types.SYMBOLE: "symbole", Types.VIDE: "'@'",
-         Types.EOF: "fin de l'expression"}
+_NOMS = {
+    Types.UNION: "'|'",
+    Types.ETOILE: "'*'",
+    Types.PLUS: "'+'",
+    Types.OPTION: "'?'",
+    Types.LEFTPAR: "'('",
+    Types.RIGHTPAR: "')'",
+    Types.SYMBOLE: "symbole",
+    Types.VIDE: "'@'",
+    Types.EOF: "fin de l'expression",
+}
+
 
 class ErreurSyntaxique(Exception):
     def __init__(self, position, attendus, trouve):
@@ -54,12 +55,13 @@ class ErreurSyntaxique(Exception):
         )
         self.position = position
 
-class Parser():
-    def __init__(self,text):
+
+class Parser:
+    def __init__(self, text):
         self.lexer = Lexer(text)
         self.current = self.lexer.nextToken()
 
-    def consume(self,expected):
+    def consume(self, expected):
         if self.peek() != expected:
             raise ErreurSyntaxique(self.current.position, [expected], self.current)
         token = self.current
@@ -69,58 +71,70 @@ class Parser():
     def peek(self):
         return self.current.type
 
-    def analyse(self):
-        self.R()
+    def traduire(self, n0=0):
+        frag, n_suivant = self.R(n0)
         self.consume(Types.EOF)
+        return frag, n_suivant
 
-    def R(self):
-        self.T()
-        self.Rp()
+    def analyse(self, n0=0):
+        frag, _ = self.traduire(n0)
+        return frag
 
-    def Rp(self):
+    def R(self, n):
+        frag, n = self.T(n)
+        return self.Rp(frag, n)
+
+    def Rp(self, acc, n):
         if self.peek() == Types.UNION:
             self.consume(Types.UNION)
-            self.T()
-            self.Rp()
-        # else epsilon
+            droite, n = self.T(n)
+            frag, n = union(acc, droite, n)
+            return self.Rp(frag, n)
+        return acc, n
 
-    def T(self):
-        self.F()
-        self.Tp()
+    def T(self, n):
+        frag, n = self.F(n)
+        return self.Tp(frag, n)
 
-    def Tp(self):
-        if self.peek() in _FIRST_F :
-            self.F()
-            self.Tp()
-        # else epsilon
-    def F(self):
-        self.A()
-        self.Fp()
+    def Tp(self, acc, n):
+        if self.peek() in _FIRST_F:
+            droite, n = self.F(n)
+            frag, n = concat(acc, droite, n)
+            return self.Tp(frag, n)
+        return acc, n
 
-    def Fp(self):
+    def F(self, n):
+        frag, n = self.A(n)
+        return self.Fp(frag, n)
+
+    def Fp(self, acc, n):
         if self.peek() == Types.ETOILE:
             self.consume(Types.ETOILE)
-            self.Fp()
-        elif self.peek() == Types.PLUS:
+            frag, n = etoile(acc, n)
+            return self.Fp(frag, n)
+        if self.peek() == Types.PLUS:
             self.consume(Types.PLUS)
-            self.Fp()
-        elif self.peek() == Types.OPTION:
+            frag, n = plus(acc, n)
+            return self.Fp(frag, n)
+        if self.peek() == Types.OPTION:
             self.consume(Types.OPTION)
-            self.Fp()
-        # else epsilon
+            frag, n = optionnel(acc, n)
+            return self.Fp(frag, n)
+        return acc, n
 
-    def A(self):
+    def A(self, n):
         if self.peek() == Types.LEFTPAR:
             self.consume(Types.LEFTPAR)
-            self.R()
+            frag, n = self.R(n)
             self.consume(Types.RIGHTPAR)
-        elif self.peek() == Types.SYMBOLE:
-            self.consume(Types.SYMBOLE)
-        elif self.peek() == Types.VIDE:
+            return frag, n
+        if self.peek() == Types.SYMBOLE:
+            tok = self.consume(Types.SYMBOLE)
+            return symbole(tok.lexeme, n)
+        if self.peek() == Types.VIDE:
             self.consume(Types.VIDE)
-        else:
-            raise ErreurSyntaxique(self.current.position, _FIRST_F, self.current)
-
+            return mot_vide(n)
+        raise ErreurSyntaxique(self.current.position, _FIRST_F, self.current)
 
 
 if __name__ == "__main__":

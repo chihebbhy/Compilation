@@ -1,9 +1,133 @@
-a ; a ; b aa
-a|b ; a b ; ab
-ab* ; a abbb ; b aba
-(a|b)*abb ; abb aabb babb ; ab abba @
-(ab)+ ; ab abab ; aba
-a?b ; b ab ; a aab
-(a*)* ; a aaa @ ; b
-a(b|c)*d ; ad abcbd ; a abc
-@ ; @ ; a
+# ==============================================================================
+
+# TP Compilation - De l'expression régulière à l'automate
+
+# Jeu de tests complet et structuré (Partie 6) - Étudiant 4
+
+# ==============================================================================
+
+#
+
+# Format des tests valides (Section 1) :
+
+#   expression ; mots acceptés (séparés par espaces, @ = mot vide) ; mots rejetés
+
+#
+
+# Format des tests d'erreurs (Section 2) :
+
+#   ERR: expression ; position_attendue ; description de l'erreur
+
+#
+
+# Les lignes vides et celles commençant par # sont ignorées.
+
+# ==============================================================================
+
+
+
+# ------------------------------------------------------------------------------
+
+# Section 1a : Expressions imposées par l'énoncé du TP
+
+# ------------------------------------------------------------------------------
+
+a ; a ; b aa @
+
+a|b ; a b ; ab @ c
+
+ab* ; a abbb ; b aba @ ba
+
+(a|b)*abb ; abb aabb babb ; ab abba @ bb
+
+(ab)+ ; ab abab ; aba @ a b
+
+a?b ; b ab ; a aab @ abb
+
+(a*)* ; @ a aaa ; b ab ba
+
+a(b|c)*d ; ad abd acd abcbd abbccd ; a abc d @ add abcb
+
+@ ; @ ; a aa b
+
+
+
+# ------------------------------------------------------------------------------
+
+# Section 1b : Trois expressions inventées (cas limites à justifier dans le rapport)
+
+# ------------------------------------------------------------------------------
+
+# I1 : Étoiles imbriquées profondes (((a*)*)*) -> isole les ε-cycles complexes sans boucle infinie dans l'ε-fermeture
+
+((a*)*)* ; @ a aaaa ; b ab ba
+
+
+
+# I2 : Étoile appliquée au mot vide (@*) -> aucun symbole alphanumérique, uniquement des ε-cycles (langage = {@})
+
+@* ; @ ; a aa
+
+
+
+# I3 : Priorités d'opérateurs (étoile > concaténation > union) -> forme a | (b (c*))
+
+a|bc* ; a b bc bccc ; ab ac c @ abc
+
+
+
+# ------------------------------------------------------------------------------
+
+# Section 1c : Cas supplémentaires (caractères alphanumériques, associativité, postfixes)
+
+# ------------------------------------------------------------------------------
+
+a*+ ; @ a aaa ; b ab
+
+a?a?aa ; aa aaa aaaa ; @ a aaaaa
+
+(A|z)7+ ; A7 z7 A777 z77 ; 7 Az7 A @ A7A
+
+a(b|@)c ; ac abc ; abbc a bc @
+
+a|b|c ; a b c ; ab abc @ d
+
+abc ; abc ; ab abcd bc @
+
+(a|b)*c ; c ac bbc abac ; @ a ca cc
+
+
+
+# ------------------------------------------------------------------------------
+
+# Section 2 : Tests d'erreurs (7 exigés par l'énoncé + 6 cas supplémentaires)
+
+# Format : ERR: expression ; position_attendue ; description
+
+# ------------------------------------------------------------------------------
+
+ERR: (ab ; 3 ; Parenthèse ouvrante non fermée à la fin
+
+ERR: ab) ; 2 ; Parenthèse fermante inattendue
+
+ERR: *a ; 0 ; Opérateur postfixe sans opérande gauche
+
+ERR: a||b ; 2 ; Double union (branche vide)
+
+ERR: () ; 1 ; Parenthèses vides
+
+ERR: |a ; 0 ; Union sans opérande gauche
+
+ERR: a( ; 2 ; Parenthèse ouvrante seule en fin d'expression
+
+ERR: a| ; 2 ; Union sans opérande droit à la fin
+
+ERR: a|*b ; 2 ; Opérateur postfixe * placé immédiatement après une union
+
+ERR: (a|) ; 3 ; Branche droite vide dans des parenthèses
+
+ERR: ((a) ; 4 ; Parenthèses imbriquées non fermées à la fin
+
+ERR: a$b ; 1 ; Erreur lexicale (caractère hors alphabet $)
+
+ERR: a-b ; 1 ; Erreur lexicale (caractère hors alphabet -)

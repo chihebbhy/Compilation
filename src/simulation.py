@@ -1,4 +1,4 @@
-"""Simulation de l'AFN (Partie 5) - Etudiant 3.
+"""Simulation de l'AFN (Partie 5) - Etudiant 4.
 
 Reconnaissance d'un mot w par un fragment (init, fin, transitions) construit
 par automate.py :
@@ -25,13 +25,13 @@ def table_transitions(frag): # ranger les transitions dans un dict table
     #Après : {(0,'a'): {1,2}, (1,EPS): {3}} depuis l etat  on peut aller en  ou 
     for src, symbole_lu, dst in frag.transitions:
         if (src, symbole_lu) not in table:
-             table[(src, symbole_lu)] = set() # set cree ensemble vide 
-             table[(src, symbole_lu)].add(dst)
+            table[(src, symbole_lu)] = set() # set cree ensemble vide 
+        table[(src, symbole_lu)].add(dst)
     return table
 
 
 def epsilon_fermeture(etats, table): # ajouter etat sans lire la lettre 
-    etat_lu=set(etats)
+    etat_lu = set(etats)
     a_traiter = list(etats)  # pile des etats restant a explorer
     while a_traiter:
         e = a_traiter.pop()

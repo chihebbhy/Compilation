@@ -1,4 +1,4 @@
-"""Interface en ligne de commande (Partie 5).
+"""Interface en ligne de commande (Partie 5) - Etudiant 4.
 
     python src/main.py "(a|b)*abb" abb aabb ab [--dot fichier.dot]
 
@@ -9,7 +9,6 @@ import sys
 
 from lexer import ErreurLexicale
 from parser import Parser, ErreurSyntaxique
-
 from export_dot import ecrire_dot
 from simulation import reconnaitre
 
@@ -29,27 +28,14 @@ def main(argv=None):
         dot_file = args[dot_index + 1]
         del args[dot_index:dot_index + 2]
 
-
     # 2. L'expression, puis les mots (le mot vide "" est garde)
     if len(args) < 1:
-        print("Usage : python src/main.py <expression> [mot1 mot2 ...] [--dot fichier.dot]",file=sys.stderr)
+        print("Usage : python src/main.py <expression> [mot1 mot2 ...] [--dot fichier.dot]", file=sys.stderr)
         return 2
     expression = args[0]
     mots = args[1:]
 
-    # 3. Analyse lexicale et syntaxique
-    try:
-        Parser(expression).analyse()
-    except (ErreurLexicale, ErreurSyntaxique) as erreur:
-        print(erreur, file=sys.stderr)
-        return 1
-
-    print("Expression valide")
-
-    # Partie 5 (plus tard) :
-    # if dot_file is not None: ecrire l'automate dans dot_file
-    # for mot in mots: afficher "mot : OUI" ou "mot : NON"
-        # 3. Analyse lexicale et syntaxique
+    # 3. Analyse lexicale et syntaxique (+ construction automate Partie 4)
     try:
         frag = Parser(expression).analyse()
     except (ErreurLexicale, ErreurSyntaxique) as erreur:
@@ -58,11 +44,10 @@ def main(argv=None):
 
     print("Expression valide")
 
-    # 4. Export Graphviz
+    # Partie 5 : export Graphviz et simulation sur les mots (a activer quand automate + simulation prets)
     if dot_file is not None:
         ecrire_dot(frag, dot_file)
 
-    # 5. Simulation
     for mot in mots:
         print(f"{mot} : {'OUI' if reconnaitre(frag, mot) else 'NON'}")
 
