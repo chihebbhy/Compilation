@@ -45,4 +45,74 @@ supprimés : seuls les commentaires d'en-tête ont été conservés.
     simulation, lanceur de tests ;
   - aucune rédaction du rapport.
 
-Tout le code et toutes les réponses théoriques sont le travail de l'équipe.
+Les sections 1 à 3 décrivent uniquement l'utilisation faite par l'Étudiant 1.
+Les utilisations des autres membres sont déclarées ci-dessous, chacune par
+son auteur. Cette déclaration remplace la phrase « tout le code est le
+travail de l'équipe », qui n'était pas exacte pour toutes les parties.
+
+
+=================================================================
+Utilisation par l'Étudiant 2 : Ghassen Khirouni
+=================================================================
+
+Outil utilisé : Claude Code (assistant IA d'Anthropic)
+Dates         : 15 et 23-24 novembre 2026
+Parties       : 3 et 4 (schéma de traduction, construction de Thompson,
+                numérotation des états) ; relecture et tests du dépôt.
+
+4. Ce que l'assistant a fait
+----------------------------
+a) Explications : attributs hérités / synthétisés, schéma L-attribué contre
+   S-attribué, circulation du fragment déjà construit (h) et du prochain
+   numéro d'état (n), associativité à gauche malgré la grammaire sans
+   récursivité à gauche, construction de r+ et r? sans dupliquer r.
+
+b) Code ÉCRIT PAR L'ASSISTANT (et non réécrit à la main) :
+   - src/automate.py : fragments (init, fin, transitions) et constructeurs
+     symbole, mot_vide, union, concat, etoile, plus, optionnel ;
+   - src/parser.py : actions sémantiques du schéma de traduction dans
+     l'analyseur à descente récursive, circulation du compteur d'états
+     (paramètre et valeur de retour, sans variable globale), liste des
+     jetons attendus dans les messages d'erreur ;
+   - une première version de lexer.py, remplacée ensuite par celle de
+     l'Étudiant 1.
+   Ces fichiers sont à l'origine de la numérotation des états (partie 4).
+
+c) Rédaction de docs/partie3_4_schema.md : schéma complet, graphe de
+   dépendances de ab|c, arbre annoté de a|bc*, associativité, opérateur
+   délicat, partie 4. Le rapport PDF en reprend le contenu.
+
+d) Vérification et tests : relecture de tout le dépôt par rapport à
+   l'énoncé et exécution de scripts de test jetables (langages reconnus,
+   propriété « au plus 2n états » sur des milliers d'expressions
+   aléatoires, cas d'erreur, ligne de commande). Trois défauts trouvés et
+   corrigés (commit 801a796) : simulation qui ne gardait que la première
+   cible de chaque transition ; parser sans actions sémantiques qui faisait
+   planter main.py ; bloc dupliqué dans main.py. L'assistant a aussi
+   préparé les corrections du rapport (docs/rapport_corrections.md) et des
+   fichiers de rendu (EQUIPE.txt, README.txt, automates/*.dot).
+
+5. Ce que l'assistant n'a pas fait
+----------------------------------
+  - ni l'export Graphviz, ni la simulation, ni le lexer final, ni la
+    partie 1 ;
+  - ni le jeu de tests du dépôt (tests/tests.txt, tests/run_tests.py).
+
+6. Retenu, corrigé, rejeté
+--------------------------
+  - Retenu : construction de Thompson et schéma L-attribué après exécution
+    des tests.
+  - Corrigé : une erreur de l'assistant dans un test jetable (a*+ accepte le
+    mot vide) et deux phrases imprécises dans docs/partie3_4_schema.md.
+  - Adapté : le parser a été adapté au lexer et à la classe d'erreur de
+    l'Étudiant 1.
+
+7. Autres membres
+-----------------
+Les Étudiants 3 et 4 doivent déclarer ici, avec la même précision (ce qui a
+été écrit par l'assistant, ce qui a été relu, corrigé ou rejeté), tout
+usage d'un assistant. Le rapport (section 6.3) mentionne un usage par
+l'Étudiant 4 : il doit être détaillé ci-dessous.
+
+Étudiant 3 : [à compléter par Isra Lemjid]
+Étudiant 4 : [à compléter par Sahar Abidi]

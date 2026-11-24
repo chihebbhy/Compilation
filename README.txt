@@ -20,7 +20,9 @@ Tests
 Structure
 ---------
     EQUIPE.txt          membres de l'equipe
-    rapport.pdf         rapport (a ajouter)
+    rapport.pdf         rapport d'equipe (4 pages)
+    UTILISATION_IA.txt  declaration d'utilisation des assistants IA
+    docs/               reponses theoriques (parties 1, 3 et 4) et corrections du rapport
     src/lexer.py        analyse lexicale (Partie 2)
     src/parser.py       analyseur predictif + schema de traduction (Parties 2, 3, 4)
     src/automate.py     fragments d'automate, construction de Thompson (Parties 3, 4)
