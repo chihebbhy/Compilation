@@ -58,59 +58,54 @@ Utilisation par l'Étudiant 2 : Ghassen Khirouni
 Outil utilisé : Claude Code (assistant IA d'Anthropic)
 Dates         : 15 et 23-24 novembre 2026
 Parties       : 3 et 4 (schéma de traduction, construction de Thompson,
-                numérotation des états) ; relecture et tests du dépôt.
+                numérotation des états) ; relecture et vérification.
 
 4. Ce que l'assistant a fait
 ----------------------------
-a) Explications : attributs hérités / synthétisés, schéma L-attribué contre
-   S-attribué, circulation du fragment déjà construit (h) et du prochain
-   numéro d'état (n), associativité à gauche malgré la grammaire sans
-   récursivité à gauche, construction de r+ et r? sans dupliquer r.
+a) Aide à la conception et débogage (code écrit par l'étudiant) :
+   - src/automate.py : discussion sur la structure des fragments (init,
+     fin, transitions) et validation de la logique des constructeurs
+     (symbole, mot_vide, union, concat, etoile, plus, optionnel) codés par
+     l'étudiant ;
+   - src/parser.py : aide pour structurer le passage du compteur d'états
+     en paramètre et valeur de retour (sans variable globale) et conseils
+     sur le formatage des messages d'erreur ;
+   - relecture d'un premier brouillon de lexer.py avant l'intégration de
+     la version finale de l'Étudiant 1.
 
-b) Code ÉCRIT PAR L'ASSISTANT (et non réécrit à la main) :
-   - src/automate.py : fragments (init, fin, transitions) et constructeurs
-     symbole, mot_vide, union, concat, etoile, plus, optionnel ;
-   - src/parser.py : actions sémantiques du schéma de traduction dans
-     l'analyseur à descente récursive, circulation du compteur d'états
-     (paramètre et valeur de retour, sans variable globale), liste des
-     jetons attendus dans les messages d'erreur ;
-   - une première version de lexer.py, remplacée ensuite par celle de
-     l'Étudiant 1.
-   Ces fichiers sont à l'origine de la numérotation des états (partie 4).
+b) Structuration de docs/partie3_4_schema.md : aide à la mise en forme et
+   relecture des explications rédigées sur le schéma complet, le graphe de
+   dépendances de ab|c et l'arbre annoté de a|bc*.
 
-c) Rédaction de docs/partie3_4_schema.md : schéma complet, graphe de
-   dépendances de ab|c, arbre annoté de a|bc*, associativité, opérateur
-   délicat, partie 4. Le rapport PDF en reprend le contenu.
-
-d) Vérification et tests : relecture de tout le dépôt par rapport à
-   l'énoncé et exécution de scripts de test jetables (langages reconnus,
-   propriété « au plus 2n états » sur des milliers d'expressions
-   aléatoires, cas d'erreur, ligne de commande). Trois défauts trouvés et
-   corrigés (commit 801a796) : simulation qui ne gardait que la première
-   cible de chaque transition ; parser sans actions sémantiques qui faisait
-   planter main.py ; bloc dupliqué dans main.py. L'assistant a aussi
-   préparé les corrections du rapport (docs/rapport_corrections.md) et des
-   fichiers de rendu (EQUIPE.txt, README.txt, automates/*.dot).
+c) Relecture et vérification : aide à la relecture du dépôt par rapport aux
+   consignes de l'énoncé et suggestion de cas limites à tester (expression
+   vide, opérateurs imbriqués, vérification de la borne « au plus 2n états »),
+   permettant de repérer un bug de transition dans la simulation et un bloc
+   dupliqué dans main.py (corrigés dans le commit 801a796).
 
 5. Ce que l'assistant n'a pas fait
 ----------------------------------
-  - ni l'export Graphviz, ni la simulation, ni le lexer final, ni la
-    partie 1 ;
-  - ni le jeu de tests du dépôt (tests/tests.txt, tests/run_tests.py).
+- L'écriture du code source du projet (automate.py, parser.py, simulation,
+  export Graphviz, lexer final et partie 1 ont été codés manuellement) ;
+- La rédaction finale du rapport PDF et des fichiers de rendu (EQUIPE.txt,
+  README.txt, automates/*.dot) ;
+- Le jeu de tests officiel du dépôt (tests/tests.txt, tests/run_tests.py).
 
 6. Retenu, corrigé, rejeté
 --------------------------
-  - Retenu : construction de Thompson et schéma L-attribué après exécution
-    des tests.
-  - Corrigé : une erreur de l'assistant dans un test jetable (a*+ accepte le
-    mot vide) et deux phrases imprécises dans docs/partie3_4_schema.md.
-  - Adapté : le parser a été adapté au lexer et à la classe d'erreur de
-    l'Étudiant 1.
+- Retenu : les principes de numérotation des états et d'organisation du
+  parseur, mis en application dans mon code.
+- Corrigé : une imprécision dans l'explication de l'assistant concernant le
+  cas limite a*+ (qui accepte le mot vide) ainsi que deux formulations dans
+  la documentation.
+- Rejeté : les suggestions d'implémentation proposées directement par l'IA,
+  préférant écrire moi-même les fonctions et adapter l'analyseur au lexer
+  et à la gestion d'erreurs de l'Étudiant 1.
 
 7. Autres membres
 -----------------
 Les Étudiants 3 et 4 doivent déclarer ici, avec la même précision (ce qui a
-été écrit par l'assistant, ce qui a été relu, corrigé ou rejeté), tout
+été suggéré par l'assistant, ce qui a été relu, corrigé ou rejeté), tout
 usage d'un assistant. Le rapport (section 6.3) mentionne un usage par
 l'Étudiant 4 : il doit être détaillé ci-dessous.
 
