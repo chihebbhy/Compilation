@@ -1,29 +1,31 @@
 """Export Graphviz (Partie 5) - Etudiant 3.
 
 Etat initial signale par une fleche entrante, etat d'acceptation en double
-cercle, ε-transitions etiquetees ε, transitions paralleles regroupees en
-une seule arete (etiquette "a,b").
+cercle, ε-transitions ls_meme_trans ε, transitions paralleles regroupees en
+une seule arete (ls_meme_trans "a,b").
 
-Visualisation :  dot -Tpng automate.py -o automate.png
+Visualisation :  dot -Tpng automate.dot -o automate.png
 
-transitions: source , etiquette ( symbole lu) , dest (0 , 'a', 1 ) de l etat 0 par a il va en 1
+transitions: source ,  symbole lu , dest (0 , 'a', 1 ) 
 """
 from automate import EPS
 EPSILON = "ε"
 
 def regrouper(transitions):
-    """Regroupe les transitions paralleles : (source, cible) -> liste des
-    etiquettes, sans doublon, dans l'ordre de premiere apparition."""
-    grp_transition = {} # dictionnaire il admet (src , dst), liste des etiquettes
+    #Regroupe les transitions paralleles : (source, cible) -> liste des ls_meme_trans, sans doublon, dans l'ordre de premiere apparition
+    grp_transition = {} # dictionnaire il admet (src , dst), liste des ls_meme_trans
     for src, symbole_lu, dst in transitions:
-        texte = EPSILON if symbole_lu is EPS else symbole_lu
-        etiquettes = grp_transition.setdefault((src, dst), []) #si existe ne l ajoute pas sinon il l ajoute
-        if texte not in etiquettes:
-            etiquettes.append(texte)
+        if symbole_lu is EPS:
+             s= EPSILON
+        else:
+            s= symbole_lu
+        ls_meme_trans = grp_transition.setdefault((src, dst), []) #si existe ne l ajoute pas sinon il l ajoute
+        if s not in ls_meme_trans:
+            ls_meme_trans.append(s)
     return grp_transition #{(0,1): ['a','b'], (1,2): ['ε']}
 
 
-def vers_dot(frag, nom="AFN"): # prendre automate et le transforme en texet pour dessiner en graphviz
+def vers_dot(frag, nom="AFN"): # prendre automate et le transforme en text pour dessiner en graphviz
     lignes = [
         f"digraph {nom} {{", # f pour que le nom est remplace par son valeur 
         "  rankdir=LR;",
@@ -33,9 +35,11 @@ def vers_dot(frag, nom="AFN"): # prendre automate et le transforme en texet pour
         f"  {frag.fin} [shape=doublecircle];",
     ]
     grp_transition = regrouper(frag.transitions)
-    for src, dst in sorted(grp_transition):        # ordre stable : fichier reproductible
-        symbole_lu = ",".join(grp_transition[(src, dst)]) # ['a', 'b'] devient "a,b"
-        lignes.append(f'  {src} -> {dst} [label="{symbole_lu}"];')
+    for cle in grp_transition:
+            src = cle[0]
+            dst = cle[1]
+            symbole_lu = ",".join(grp_transition[cle])
+            lignes.append(f'  {src} -> {dst} [label="{symbole_lu}"];')
     lignes.append("}")
     return "\n".join(lignes) + "\n"
 

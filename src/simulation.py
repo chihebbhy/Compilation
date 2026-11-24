@@ -32,7 +32,7 @@ def table_transitions(frag): # ranger les transitions dans un dict table
 
 def epsilon_fermeture(etats, table): # ajouter etat sans lire la lettre 
     etat_lu=set(etats)
-    a_traiter = list(etats)  # pile des etats restant a explorer
+    a_traiter = list(etats)  # pile des etats restant a explorer par ordre
     while a_traiter:
         e = a_traiter.pop()
         for cible in table.get((e, EPS), ()):
@@ -42,7 +42,7 @@ def epsilon_fermeture(etats, table): # ajouter etat sans lire la lettre
     return etat_lu
 
 
-def transiter(etats, c, table): # avance pas en laisant une lettre 
+def transition(etats, c, table): # avance pas en laisant une lettre calcule tous les etats qu'on peut atteindre en lisant c
     atteints = set()
     for e in etats:
         if (e, c) in table:
@@ -52,11 +52,11 @@ def transiter(etats, c, table): # avance pas en laisant une lettre
 
 
 def reconnaitre(frag, mot): # true or false 
-    """Vrai si l'automate `frag` accepte `mot` (chaine, "" = mot vide)."""
+    #Vrai si l'automate `frag` accepte `mot` (chaine, "" = mot vide)
     table = table_transitions(frag)
     courant = epsilon_fermeture({frag.init}, table)
     for c in mot:
-        courant = epsilon_fermeture(transiter(courant, c, table), table)
+        courant = epsilon_fermeture(transition(courant, c, table), table)
         if not courant:              # plus aucun etat actif : rejet certain
             return False
     return frag.fin in courant
