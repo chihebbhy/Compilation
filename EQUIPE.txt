@@ -1,6 +1,22 @@
-Equipe (nom, prenom, groupe)
-----------------------------
-Etudiant 1 Chiheb Eddine Ben Hadj Yahia : A COMPLETER  - Analyse lexicale, grammaire LL(1), FIRST/FOLLOW
-Etudiant 2 Ghassen Khirouni             : A COMPLETER  - Schema de traduction, construction de Thompson
-Etudiant 3 Isra Lemjid                  : A COMPLETER  - Export Graphviz, simulation
-Etudiant 4 Sahar Abidi                  : A COMPLETER  - Jeu de tests, numerotation des etats, rapport
+Equipe - TP Techniques de compilation (annee universitaire 2026-2027)
+=====================================================================
+
+Etudiant 1 : Ben Hadj Yahia Chiheb Eddine
+  Numero d'inscription : A COMPLETER
+  En charge : analyse lexicale ; partie 1 (grammaire LL(1), FIRST/FOLLOW)
+  Relecture : tests, numerotation, rapport
+
+Etudiant 2 : Khirouni Ghassen
+  Numero d'inscription : A COMPLETER
+  En charge : construction de Thompson ; partie 3 ; circulation du compteur (partie 4)
+  Relecture : lexique, analyseur, partie 1
+
+Etudiant 3 : Lemjid Isra
+  Numero d'inscription : A COMPLETER
+  En charge : export Graphviz, simulation, ligne de commande (partie 5)
+  Relecture : construction de Thompson, partie 3
+
+Etudiant 4 : Abidi Sahar
+  Numero d'inscription : A COMPLETER
+  En charge : jeu de tests (dont le test 2n), rapport (partie 6)
+  Relecture : export, simulation, ligne de commande

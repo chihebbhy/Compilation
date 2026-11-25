@@ -87,8 +87,6 @@ c) Relecture et vérification : aide à la relecture du dépôt par rapport aux
 ----------------------------------
 - L'écriture du code source du projet (automate.py, parser.py, simulation,
   export Graphviz, lexer final et partie 1 ont été codés manuellement) ;
-- La rédaction finale du rapport PDF et des fichiers de rendu (EQUIPE.txt,
-  README.txt, automates/*.dot) ;
 - Le jeu de tests officiel du dépôt (tests/tests.txt, tests/run_tests.py).
 
 6. Retenu, corrigé, rejeté
@@ -102,12 +100,57 @@ c) Relecture et vérification : aide à la relecture du dépôt par rapport aux
   préférant écrire moi-même les fonctions et adapter l'analyseur au lexer
   et à la gestion d'erreurs de l'Étudiant 1.
 
+Mise à jour du 25 novembre 2026 (à la demande de l'Étudiant 2)
+--------------------------------------------------------------
+L'assistant (Claude Code) a relu le travail par rapport à l'énoncé et exécuté
+les tests, puis a reconstruit rapport.pdf (source : docs/rapport.html) :
+réécriture et mise en page à partir de la version précédente et de docs/,
+corrections, dessin des figures 1 à 4, rédaction de la section 8 (conception,
+difficultés, apport) à partir du code et de l'historique git. Il a aussi
+modifié EQUIPE.txt, README.txt et le présent fichier. Le code source et les
+tests n'ont pas été modifiés lors de cette mise à jour.
+
+=================================================================
+Utilisation par l'Étudiant 3 : Isra Lemjid
+=================================================================
+
+Outil utilisé : Claude AI (Anthropic)
+Dates         : novembre 2026
+Partie        : 5 (export Graphviz et simulation de l'AFN)
+
+- Aide à la conception et à la compréhension : export Graphviz
+  (regroupement des transitions parallèles sans doublon et dans leur ordre
+  d'apparition ; génération du code DOT dans vers_dot() : flèche entrante,
+  double cercle, étiquette ε ; écriture en UTF-8 par ecrire_dot()) ;
+  compréhension et vérification de transition() et reconnaitre().
+- Relecture et vérification : cohérence entre les fragments de automate.py
+  et les modules d'export et de simulation ; cas limites proposés (mot vide,
+  ε-transitions successives, cycles d'ε-transitions) ; vérification de
+  l'ε-fermeture (chaque état traité une seule fois).
+- Ce que l'assistant n'a pas fait : l'écriture complète du code des deux
+  modules ; les fonctions de simulation et d'export Graphviz ont été
+  écrites manuellement par l'étudiant.
+
+=================================================================
+Extensions facultatives (déterminisation, minimisation, mode panique)
+=================================================================
+
+Fichiers : src/afd.py, src/recuperation.py, tests/test_bonus.py,
+           modifications de src/main.py
+Auteur   : un étudiant de l'équipe, avec l'aide d'une IA
+  Nom de l'étudiant : [à compléter]
+  Outil utilisé     : [à compléter]
+  Nature de l'aide  : [à compléter]
+
+Claude Code a ensuite testé ces extensions et les a décrites dans le
+rapport (section 7), README.txt et le présent fichier, sans modifier leur
+code.
+
 7. Autres membres
 -----------------
-Les Étudiants 3 et 4 doivent déclarer ici, avec la même précision (ce qui a
-été suggéré par l'assistant, ce qui a été relu, corrigé ou rejeté), tout
-usage d'un assistant. Le rapport (section 6.3) mentionne un usage par
-l'Étudiant 4 : il doit être détaillé ci-dessous.
+L'Étudiant 4 doit déclarer ici, avec la même précision (ce qui a été
+suggéré par l'assistant, ce qui a été relu, corrigé ou rejeté), tout usage
+d'un assistant. La version précédente du rapport mentionnait une aide à la
+rédaction des tableaux de test.
 
-Étudiant 3 : [à compléter par Isra Lemjid]
 Étudiant 4 : [à compléter par Sahar Abidi]
