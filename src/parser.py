@@ -35,6 +35,7 @@ import sys
 
 import automate
 from lexer import Lexer, TokenType
+from automate import symbole, mot_vide, union, concat, etoile, plus, optionnel
 
 Types = TokenType
 _FIRST_F = (Types.LEFTPAR, Types.SYMBOLE, Types.VIDE)

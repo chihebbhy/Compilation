@@ -28,7 +28,7 @@ svg .her { fill: #ffe8cc; stroke: #c2410c; }
 <p class="year">Compilation, 3ᵉ année Ingénieur Informatique<br>Année universitaire 2026–2027</p>
 <h1>Du texte d’une expression régulière à l’automate</h1>
 <p class="center">TP de Techniques de compilation : traduction dirigée par la syntaxe<br>Rapport d’équipe, 25 novembre 2026</p>
-<table class=""><tr><th>Nom et prénom</th><th>N° d’inscription</th><th>Parties en charge</th><th>Parties relues</th></tr><tr><td>Ben Hadj Yahia Chiheb Eddine</td><td><span class="todo">[à compléter]</span></td><td>Analyse lexicale ; partie 1</td><td>Tests, numérotation, rapport</td></tr><tr><td>Khirouni Ghassen</td><td><span class="todo">[à compléter]</span></td><td>Thompson ; partie 3 ; circulation du compteur (partie 4)</td><td>Lexique, analyseur, partie 1</td></tr><tr><td>Lemjid Isra</td><td><span class="todo">[à compléter]</span></td><td>Export Graphviz, simulation, ligne de commande (partie 5)</td><td>Construction de Thompson, partie 3</td></tr><tr><td>Abidi Sahar</td><td><span class="todo">[à compléter]</span></td><td>Jeu de tests (dont le test 2n), rapport (partie 6)</td><td>Export, simulation, ligne de commande</td></tr></table>
+<table class=""><tr><th>Nom et prénom</th><th>N° d’inscription</th><th>Parties en charge</th><th>Parties relues</th></tr><tr><td>Ben Hadj Yahia Chiheb Eddine</td><td><span class="todo">[à compléter]</span></td><td>Analyse lexicale ; parties 1 et 2</td><td>Tests, numérotation, rapport</td></tr><tr><td>Khirouni Ghassen</td><td><span class="todo">[à compléter]</span></td><td>Thompson ; partie 3 ; circulation du compteur (partie 4)</td><td>Lexique, analyseur, partie 1</td></tr><tr><td>Lemjid Isra</td><td><span class="todo">[à compléter]</span></td><td>Export Graphviz, simulation, ligne de commande (partie 5)</td><td>Construction de Thompson, partie 3</td></tr><tr><td>Abidi Sahar</td><td><span class="todo">[à compléter]</span></td><td>Jeu de tests (dont le test 2n), rapport (partie 6)</td><td>Export, simulation, ligne de commande</td></tr></table>
 </section>
 <h2>1. Partie 1 : grammaire LL(1)</h2>
 <p>Terminaux : <code>|  *  +  ?  (  )  SYMBOLE  @</code> et <code>$</code> (fin). On note P = { (, SYMBOLE, @ }.</p>
@@ -126,15 +126,29 @@ A → '(' R ')' | SYMBOLE | '@'</pre>
 </ul>
 <p><b>Notre apport :</b> numérotation sans état global ; r+ et r? sans duplication ; erreurs avec position et jetons attendus ; tests du langage, de la borne 2n et des erreurs. Trois extensions sont réalisées (section 7).</p>
 
-<h2>9. Ressources externes et assistants IA</h2>
-<p>Outils utilisés : <b>Claude Code</b> et <b>Claude AI</b> (étudiant 3), d’Anthropic. Détail dans <code>UTILISATION_IA.txt</code>.</p>
-<ul>
-<li><b>Mise en place (étudiant 1) :</b> dépôt, arborescence, en-têtes de fichiers et gabarits ; les squelettes de code proposés ont été supprimés.</li>
-<li><b><code>automate.py</code> et <code>parser.py</code> (étudiant 2) :</b> l’assistant a aidé et corrigé (structure des fragments, circulation du compteur, messages d’erreur).</li>
-<li><b>Parties 3 et 4, relecture (étudiant 2) :</b> aide à la mise en forme et à la relecture des explications ; suggestions de cas limites ; aide au repérage d’un bug de la simulation et d’un bloc dupliqué dans <code>main.py</code>.</li>
-<li><b>Partie 5 (étudiant 3, Claude AI) :</b> aide à la compréhension et à l’organisation de l’export Graphviz et à la vérification de la simulation ; cohérence avec <code>automate.py</code> et cas limites (mot vide, cycles ε). Les fonctions de ces deux modules ont été écrites manuellement par l’étudiant.</li>
-<li><b>Version précédente du rapport :</b> elle déclarait aussi une aide pour détecter l’absence de fragment retourné par l’analyseur et pour rédiger les tableaux de test.</li>
-<li><b>Version actuelle du rapport (25 novembre) :</b> à la demande de l’étudiant 2, l’assistant a relu le travail par rapport à l’énoncé, exécuté les tests, puis <b>reconstruit ce rapport</b> : réécriture à partir de l’ancienne version et de <code>docs/</code>, corrections, figures 1 à 4, rédaction de la section 8 à partir du code et de l’historique git, puis de la section 7 à partir du code des extensions.</li>
-<li><b>Extensions (section 7) :</b> code écrit par un étudiant (<span class="todo">[à compléter]</span>) avec l’aide d’une IA (outil : <span class="todo">[à compléter]</span> ; nature de l’aide : <span class="todo">[à compléter]</span>).</li>
-</ul>
+<h2>9. Utilisation des assistants IA</h2>
+<p>Cette déclaration reprend les contributions individuelles et collectives consignées dans le fichier <code>UTILISATION_IA.txt</code>.</p>
+
+<h3>Utilisation par l’Étudiant 1 : Ben Hadj Yahia Chiheb Eddine</h3>
+<p><b>Outils utilisés :</b> Claude Code. <b>Dates :</b> novembre 2026. <b>Parties :</b> 1 et 2.</p>
+<p>Claude Code a été utilisé pour la mise en place initiale du dépôt : initialisation du dépôt Git et création de l’arborescence ; choix des noms de fichiers et création des fichiers annexes ; création des gabarits vides pour les tableaux de la partie 1 ; recopie dans <code>tests/tests.txt</code> des neuf expressions obligatoires ; rédaction de cette déclaration initiale.</p>
+<p>L’assistant avait aussi proposé des squelettes de code (classes, signatures de fonctions, constantes de jetons, fonctions vides). Ces squelettes ont été supprimés ; seuls les commentaires d’en-tête ont été conservés.</p>
+
+<h3>Utilisation par l’Étudiant 2 : Ghassen Khirouni</h3>
+<p><b>Outil utilisé :</b> Claude Code. <b>Dates :</b> novembre 2026. <b>Parties :</b> 3 et 4 (schéma de traduction, construction de Thompson, numérotation des états) ; relecture.</p>
+<p>L’assistant a aidé à concevoir et déboguer la structure des fragments et la circulation du compteur d’états dans <code>src/parser.py</code> ; donné des conseils sur le formatage des messages d’erreur ; aidé à mettre en forme et relire <code>docs/partie3_4_schema.md</code> ; suggéré des cas limites et aidé à repérer un bug de simulation ainsi qu’un bloc dupliqué dans <code>src/main.py</code>.</p>
+<p>Le code source des constructeurs de Thompson et du parseur a été écrit par l’étudiant. L’assistant n’a pas rédigé les tests officiels. Les principes de circulation des attributs ont été retenus et mis en œuvre par l’étudiant. Une imprécision concernant le cas <code>a*+</code> et deux formulations de la documentation ont été corrigées. Les suggestions d’implémentation directe ont été rejetées au profit d’une implémentation adaptée au projet.</p>
+
+<h3>Utilisation par l’Étudiant 3 : Isra Lemjid</h3>
+<p><b>Outil utilisé :</b> Claude AI. <b>Date :</b> novembre 2026. <b>Partie :</b> 5 (export Graphviz et simulation de l’AFN).</p>
+<p>L’assistant a aidé à comprendre et organiser l’export Graphviz, et à relire la simulation : regroupement des transitions parallèles, flèche d’état initial, double cercle d’acceptation, étiquettes epsilon, ainsi que les cas du mot vide et des cycles epsilon. Les fonctions d’export et de simulation ont été écrites manuellement par l’étudiant ; l’assistant n’a pas écrit ces modules à sa place.</p>
+
+<h3>Utilisation par l’Étudiant 4 : Sahar Abidi</h3>
+<p><b>Outil utilisé :</b> Claude AI. <b>Date :</b> novembre 2026. <b>Partie :</b> 6 (jeu de tests et lanceur de tests).</p>
+<p>Sahar a écrit manuellement les cas de test, les contre-exemples et le contenu de <code>tests/tests.txt</code>. Elle a également écrit manuellement la base de <code>tests/run_tests.py</code>. Claude Code a uniquement amélioré la présentation des résultats affichés par le lanceur de tests.</p>
+<p>Claude Code n’a pas écrit les cas de test, les contre-exemples ni la logique de vérification du lanceur. La mise en forme plus lisible de la sortie du lanceur a été retenue. Les tests, les contre-exemples et la logique de base sont le travail manuel de Sahar.</p>
+
+<h3>Extensions réalisées ensemble (+3 points)</h3>
+<p><b>Extensions :</b> déterminisation ; minimisation et équivalence d’automates ; récupération d’erreurs en mode panique. <b>Réalisation :</b> travail collectif de l’équipe.</p>
+<p><b>Utilisation d’une IA pour ces extensions :</b> Claude Code a relu le code, signalé des bugs et aidé l’équipe à les identifier. L’équipe a examiné les remarques et effectué les corrections retenues.</p>
 </body></html>

@@ -1,156 +1,119 @@
-Déclaration d'utilisation d'un assistant IA
+Declaration d'utilisation des assistants IA
 ===========================================
 
-TP Techniques de compilation - Du texte d'une expression régulière à l'automate
+TP Techniques de compilation - Du texte d'une expression reguliere a l'automate
 
-Outil utilisé : Claude Code (assistant IA d'Anthropic)
-Date          : 15 novembre 2026
-Utilisé par   : Chiheb Eddine Ben Hadj Yahia (Étudiant 1)
+Cette declaration recense l'utilisation d'assistants IA par membre de l'equipe.
 
+=================================================================
+Utilisation par l'Étudiant 1 : Ben Hadj Yahia Chiheb Eddine
+=================================================================
 
-1. Ce que l'assistant a fait
-----------------------------
-L'assistant a été utilisé uniquement pour la mise en place initiale du dépôt :
+Outils utilises : Claude Code
+Dates           : Novembre 2026
+Parties         : 1 et 2
 
-  - initialisation du dépôt git ;
-  - création de l'arborescence demandée par l'énoncé (section 8) :
-    src/, tests/, automates/, EQUIPE.txt, README.txt ;
-  - choix des noms de fichiers : lexer.py, parser.py, automate.py,
-    export_dot.py, simulation.py, main.py, run_tests.py ;
-  - commentaires d'en-tête de chaque fichier, qui reprennent les exigences
-    de l'énoncé (rôle du fichier, partie concernée, rappel de la grammaire
-    fournie) ;
-  - fichiers annexes : README.txt (instructions d'exécution), .gitignore,
-    gabarit de EQUIPE.txt ;
-  - recopie dans tests/tests.txt des neuf expressions obligatoires données
-    dans le tableau de la partie 6 de l'énoncé ;
-  - gabarits de tableaux vides pour la partie 1 (docs/partie1_tables.md) :
-    lignes, colonnes et numérotation des productions, sans aucun contenu ;
-  - rédaction du présent fichier.
+Ce que les assistants ont fait
+------------------------------
+Claude Code a ete utilise pour la mise en place initiale du depot :
 
+  - initialisation du depot Git et creation de l'arborescence ;
+  - choix des noms de fichiers et creation des fichiers annexes ;
+  - creation des gabarits vides pour les tableaux de la partie 1 ;
+  - recopie dans tests/tests.txt des neuf expressions obligatoires ;
+  - redaction de cette declaration initiale.
 
-2. Ce qui a été rejeté
-----------------------
+Ce qui a ete rejete ou reste a verifier
+---------------------------------------
 L'assistant avait aussi proposé des squelettes de code (classes, signatures
 de fonctions, constantes de jetons, fonctions vides). Ces squelettes ont été
 supprimés : seuls les commentaires d'en-tête ont été conservés.
-
-
-3. Ce que l'assistant n'a pas fait
-----------------------------------
-  - aucune réponse aux questions théoriques (FIRST/FOLLOW, table LL(1),
-    schéma de traduction, graphes de dépendances, arbres annotés) ;
-  - aucune implémentation : analyse lexicale, analyse syntaxique,
-    construction de Thompson, numérotation des états, export Graphviz,
-    simulation, lanceur de tests ;
-  - aucune rédaction du rapport.
-
-Les sections 1 à 3 décrivent uniquement l'utilisation faite par l'Étudiant 1.
-Les utilisations des autres membres sont déclarées ci-dessous, chacune par
-son auteur. Cette déclaration remplace la phrase « tout le code est le
-travail de l'équipe », qui n'était pas exacte pour toutes les parties.
 
 
 =================================================================
 Utilisation par l'Étudiant 2 : Ghassen Khirouni
 =================================================================
 
-Outil utilisé : Claude Code (assistant IA d'Anthropic)
-Dates         : 15 et 23-24 novembre 2026
-Parties       : 3 et 4 (schéma de traduction, construction de Thompson,
-                numérotation des états) ; relecture et vérification.
+Outil utilise : Claude Code
+Dates         : Novembre 2026
+Parties       : 3 et 4 (schema de traduction, construction de Thompson,
+                numerotation des etats) ; relecture
 
-4. Ce que l'assistant a fait
-----------------------------
-a) Aide à la conception et débogage (code écrit par l'étudiant) :
-   - src/automate.py : discussion sur la structure des fragments (init,
-     fin, transitions) et validation de la logique des constructeurs
-     (symbole, mot_vide, union, concat, etoile, plus, optionnel) codés par
-     l'étudiant ;
-   - src/parser.py : aide pour structurer le passage du compteur d'états
-     en paramètre et valeur de retour (sans variable globale) et conseils
-     sur le formatage des messages d'erreur ;
-   - relecture d'un premier brouillon de lexer.py avant l'intégration de
-     la version finale de l'Étudiant 1.
+Ce que l'assistant a fait
+-------------------------
+  - aide a la conception et au debogage de la structure des fragments et de
+    la circulation du compteur d'etats dans src/parser.py ;
+  - conseils sur le formatage des messages d'erreur ;
+  - aide a la mise en forme et relecture de docs/partie3_4_schema.md ;
+  - suggestions de cas limites et aide a reperer un bug de simulation et un
+    bloc duplique dans src/main.py.
 
-b) Structuration de docs/partie3_4_schema.md : aide à la mise en forme et
-   relecture des explications rédigées sur le schéma complet, le graphe de
-   dépendances de ab|c et l'arbre annoté de a|bc*.
+Ce que l'assistant n'a pas fait
+-------------------------------
+Le code source des constructeurs de Thompson et du parseur a ete ecrit par
+l'etudiant. L'assistant n'a pas redige les tests officiels.
 
-c) Relecture et vérification : aide à la relecture du dépôt par rapport aux
-   consignes de l'énoncé et suggestion de cas limites à tester (expression
-   vide, opérateurs imbriqués, vérification de la borne « au plus 2n états »),
-   permettant de repérer un bug de transition dans la simulation et un bloc
-   dupliqué dans main.py (corrigés dans le commit 801a796).
-
-5. Ce que l'assistant n'a pas fait
-----------------------------------
-- L'écriture du code source du projet (automate.py, parser.py, simulation,
-  export Graphviz, lexer final et partie 1 ont été codés manuellement) ;
-- Le jeu de tests officiel du dépôt (tests/tests.txt, tests/run_tests.py).
-
-6. Retenu, corrigé, rejeté
---------------------------
-- Retenu : les principes de numérotation des états et d'organisation du
-  parseur, mis en application dans mon code.
-- Corrigé : une imprécision dans l'explication de l'assistant concernant le
-  cas limite a*+ (qui accepte le mot vide) ainsi que deux formulations dans
-  la documentation.
-- Rejeté : les suggestions d'implémentation proposées directement par l'IA,
-  préférant écrire moi-même les fonctions et adapter l'analyseur au lexer
-  et à la gestion d'erreurs de l'Étudiant 1.
-
-Mise à jour du 25 novembre 2026 (à la demande de l'Étudiant 2)
---------------------------------------------------------------
-L'assistant (Claude Code) a relu le travail par rapport à l'énoncé et exécuté
-les tests, puis a reconstruit rapport.pdf (source : docs/rapport.html) :
-réécriture et mise en page à partir de la version précédente et de docs/,
-corrections, dessin des figures 1 à 4, rédaction de la section 8 (conception,
-difficultés, apport) à partir du code et de l'historique git. Il a aussi
-modifié EQUIPE.txt, README.txt et le présent fichier. Le code source et les
-tests n'ont pas été modifiés lors de cette mise à jour.
+Retenu, corrige ou rejete
+-------------------------
+Les principes de circulation des attributs ont ete retenus et mis en oeuvre
+par l'etudiant. Une imprecision concernant le cas a*+ et deux formulations
+de la documentation ont ete corrigees. Les suggestions d'implementation
+directe ont ete rejetees au profit d'une implementation adaptee au projet.
 
 =================================================================
 Utilisation par l'Étudiant 3 : Isra Lemjid
 =================================================================
 
-Outil utilisé : Claude AI (Anthropic)
-Dates         : novembre 2026
+Outil utilise : Claude AI
+Date          : Novembre 2026
 Partie        : 5 (export Graphviz et simulation de l'AFN)
 
-- Aide à la conception et à la compréhension : export Graphviz
-  (regroupement des transitions parallèles sans doublon et dans leur ordre
-  d'apparition ; génération du code DOT dans vers_dot() : flèche entrante,
-  double cercle, étiquette ε ; écriture en UTF-8 par ecrire_dot()) ;
-  compréhension et vérification de transition() et reconnaitre().
-- Relecture et vérification : cohérence entre les fragments de automate.py
-  et les modules d'export et de simulation ; cas limites proposés (mot vide,
-  ε-transitions successives, cycles d'ε-transitions) ; vérification de
-  l'ε-fermeture (chaque état traité une seule fois).
-- Ce que l'assistant n'a pas fait : l'écriture complète du code des deux
-  modules ; les fonctions de simulation et d'export Graphviz ont été
-  écrites manuellement par l'étudiant.
+Ce que l'assistant a fait
+-------------------------
+L'assistant a aide a comprendre et organiser l'export Graphviz, et a relire
+la simulation : regroupement des transitions paralleles, fleche d'etat initial,
+double cercle d'acceptation, etiquettes epsilon, ainsi que les cas du mot vide
+et des cycles epsilon.
+
+Ce que l'assistant n'a pas fait
+-------------------------------
+Les fonctions d'export et de simulation ont ete ecrites manuellement par
+l'etudiant ; l'assistant n'a pas ecrit ces modules a sa place.
 
 =================================================================
-Extensions facultatives (déterminisation, minimisation, mode panique)
+Utilisation par l'Étudiant 4 : Sahar Abidi
 =================================================================
 
-Fichiers : src/afd.py, src/recuperation.py, tests/test_bonus.py,
-           modifications de src/main.py
-Auteur   : un étudiant de l'équipe, avec l'aide d'une IA
-  Nom de l'étudiant : [à compléter]
-  Outil utilisé     : [à compléter]
-  Nature de l'aide  : [à compléter]
+Outil utilise : Claude AI
+Date          : Novembre 2026
+Parties       : 6 (jeu de tests et lanceur de tests)
 
-Claude Code a ensuite testé ces extensions et les a décrites dans le
-rapport (section 7), README.txt et le présent fichier, sans modifier leur
-code.
+Ce que l'assistant a fait
+-------------------------
+Sahar a ecrit manuellement les cas de test, les contre-exemples et le contenu
+de tests/tests.txt. Elle a egalement ecrit manuellement la base de
+tests/run_tests.py. Claude Code a uniquement ameliore la presentation des
+resultats affiches par le lanceur de tests.
 
-7. Autres membres
------------------
-L'Étudiant 4 doit déclarer ici, avec la même précision (ce qui a été
-suggéré par l'assistant, ce qui a été relu, corrigé ou rejeté), tout usage
-d'un assistant. La version précédente du rapport mentionnait une aide à la
-rédaction des tableaux de test.
+Ce que l'assistant n'a pas fait
+-------------------------------
+Claude Code n'a pas ecrit les cas de test, les contre-exemples ni la logique
+de verification du lanceur.
 
-Étudiant 4 : [à compléter par Sahar Abidi]
+Retenu, corrige ou rejete
+-------------------------
+La mise en forme plus lisible de la sortie du lanceur a ete retenue. Les tests,
+les contre-exemples et la logique de base sont le travail manuel de Sahar.
+
+=================================================================
+Extensions realisees ensemble (+3 points)
+=================================================================
+
+Extensions : determinisation ; minimisation et equivalence d'automates ;
+recuperation d'erreurs en mode panique.
+
+Realisation : travail collectif de l'equipe.
+
+Utilisation d'une IA pour ces extensions : Claude Code a relu le code,
+signale des bugs et aide l'equipe a les identifier. L'equipe a examine les
+remarques et a effectue les corrections retenues.

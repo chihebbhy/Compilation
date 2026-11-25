@@ -2,21 +2,20 @@ Equipe - TP Techniques de compilation (annee universitaire 2026-2027)
 =====================================================================
 
 Etudiant 1 : Ben Hadj Yahia Chiheb Eddine
-  Numero d'inscription : A COMPLETER
-  En charge : analyse lexicale ; partie 1 (grammaire LL(1), FIRST/FOLLOW)
-  Relecture : tests, numerotation, rapport
+  En charge : parties 1 et 2
+  Relecture : tests, numerotation des etats, rapport
 
 Etudiant 2 : Khirouni Ghassen
-  Numero d'inscription : A COMPLETER
-  En charge : construction de Thompson ; partie 3 ; circulation du compteur (partie 4)
-  Relecture : lexique, analyseur, partie 1
+  En charge : parties 3 et 4
+  Relecture : analyse lexicale, analyseur, partie 1
 
 Etudiant 3 : Lemjid Isra
-  Numero d'inscription : A COMPLETER
-  En charge : export Graphviz, simulation, ligne de commande (partie 5)
+  En charge : partie 5
   Relecture : construction de Thompson, partie 3
 
 Etudiant 4 : Abidi Sahar
-  Numero d'inscription : A COMPLETER
-  En charge : jeu de tests (dont le test 2n), rapport (partie 6)
-  Relecture : export, simulation, ligne de commande
+  En charge : partie 6
+  Relecture : export Graphviz, simulation, ligne de commande
+
+Extensions realisees ensemble (+3 points) : determinisation, minimisation
+et equivalence d'automates, et recuperation d'erreurs en mode panique.

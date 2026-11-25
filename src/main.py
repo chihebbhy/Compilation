@@ -26,6 +26,7 @@ def main(argv=None):
     if "--dot" in args:
         dot_index = args.index("--dot")
         if dot_index + 1 >= len(args):
+            # Rien ne suit --dot
             print("Erreur : le fichier .dot n'est pas spécifié après --dot.", file=sys.stderr)
             return 2
         dot_file = args[dot_index + 1]
