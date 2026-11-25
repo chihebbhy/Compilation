@@ -6,8 +6,8 @@ mettre à la place des passages inexacts ou manquants, puis à régénérer le P
 ## 1. Section 6.3 – Outils d'assistance IA (remplacer entièrement)
 
 > **Outil :** Claude Code (assistant IA d'Anthropic), utilisé par l'Étudiant 1
-> (mise en place du dépôt) et par l'Étudiant 2 (parties 3 et 4, relecture,
-> tests). Détail complet dans `UTILISATION_IA.txt`.
+> (mise en place du dépôt) et par l'Étudiant 2 (partie 3 et relecture,
+> tests). Le détail figure dans la section 9 du rapport.
 >
 > **Écrit par l'assistant :** `src/automate.py` (construction de Thompson),
 > les actions sémantiques de `src/parser.py` (dont la circulation du compteur
@@ -24,21 +24,22 @@ mettre à la place des passages inexacts ou manquants, puis à régénérer le P
 >
 > **Non réalisé par l'assistant :** lexer final, partie 1, export Graphviz,
 > simulation, jeu de tests du dépôt. Les Étudiants 3 et 4 complètent leur
-> propre usage dans `UTILISATION_IA.txt`.
+> propre usage dans la section 9 du rapport.
 >
 > **Phrase à supprimer :** « Tout le code Python d'analyse et de construction
 > d'automate a été entièrement réécrit à la main. »
 
 ## 2. Section 3 – Partie 4 (corriger l'attribution)
 
-Remplacer « Réalisée par Sahar Abidi (Étudiant 4). » par :
+La partie 4 (numérotation des états et test de la propriété 2n) est attribuée
+à Sahar Abidi (Étudiant 4). Ghassen Khirouni (Étudiant 2) est en charge de la
+construction de Thompson et du schéma de traduction (partie 3).
 
-> Le compteur circule dans le code de l'Étudiant 2 (`automate.py`,
-> `parser.py`). L'Étudiant 4 a écrit le test automatique de la propriété
-> « au plus 2n états » dans `tests/run_tests.py`.
+> Sahar a pris en charge la numérotation des états et le test automatique de
+> la propriété « au plus 2n états » dans `tests/run_tests.py`.
 
-Et, dans la fiche de répartition, ligne Étudiant 4 : retirer « numérotation
-(Partie 4) » de ses parties écrites et l'ajouter à l'Étudiant 2 (« écrites »).
+Et, dans la fiche de répartition, indiquer les parties 4 et 6 pour l'Étudiant 4,
+et la partie 3 pour l'Étudiant 2.
 
 ## 3. Section 2.4 – ajouter la construction de `r?`
 

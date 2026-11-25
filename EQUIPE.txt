@@ -6,7 +6,7 @@ Etudiant 1 : Ben Hadj Yahia Chiheb Eddine
   Relecture : tests, numerotation des etats, rapport
 
 Etudiant 2 : Khirouni Ghassen
-  En charge : parties 3 et 4
+  En charge : partie 3
   Relecture : analyse lexicale, analyseur, partie 1
 
 Etudiant 3 : Lemjid Isra
@@ -14,7 +14,7 @@ Etudiant 3 : Lemjid Isra
   Relecture : construction de Thompson, partie 3
 
 Etudiant 4 : Abidi Sahar
-  En charge : partie 6
+  En charge : parties 4 et 6 (numérotation des états et jeu de tests)
   Relecture : export Graphviz, simulation, ligne de commande
 
 Extensions realisees ensemble (+3 points) : determinisation, minimisation

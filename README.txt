@@ -29,8 +29,7 @@ Tests
 Structure
 ---------
     EQUIPE.txt          membres de l'equipe
-    rapport.pdf         rapport d'equipe (page de garde + 5 pages)
-    UTILISATION_IA.txt  declaration d'utilisation des assistants IA
+    rapport.pdf         rapport d'equipe (9 pages)
     docs/               reponses theoriques (parties 1, 3 et 4) et source du rapport
     src/lexer.py        analyse lexicale (Partie 2)
     src/parser.py       analyseur predictif + schema de traduction (Parties 2, 3, 4)
@@ -43,4 +42,4 @@ Structure
     tests/test_bonus.py tests des extensions
     tests/tests.txt     jeu de tests (Partie 6)
     tests/run_tests.py  lanceur de tests (Partie 6)
-    automates/          fichiers .dot generes
+    automates/          fichiers .dot ou .png generes
